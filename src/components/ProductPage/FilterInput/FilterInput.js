@@ -1,24 +1,25 @@
 import React from 'react';
 
-class InputNumber extends React.Component {
+class FilterInput extends React.Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(event) {
-        this.props.handleChange(event);
+        this.props.onValueChange(event.target.value);
     }
 
     render() {
         return (
             <input
                 className={this.props.className}
-                name={this.props.name}
-                value={this.props.value}
-                onChange={this.handleChange} />
+                type="text"
+                value={this.props.inputValue}
+                onChange={this.handleChange}
+            />
         );
     }
 }
 
-export default InputNumber;
+export default FilterInput;

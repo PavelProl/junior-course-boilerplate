@@ -17,13 +17,11 @@ function getMaxValue(arr) {
     return maxBy((obj) => obj.price, arr).price;
 }
 
-function getFilteredProducts(arr, min, max) {
+// фильтрую массив по min и max значениям цены
+function getFilteredProducts(arr, minValue, maxValue) {
     const filtered = arr.filter((item) => {
-        return (item.price >= min) && (item.price <= max);
+        return (item.price >= minValue) && (item.price <= maxValue);
     });
-    // временный лог для проверки
-    console.log(filtered);
-
     return filtered;
 }
 
@@ -33,21 +31,24 @@ class App extends React.Component {
         this.state = {
             minValue: '',
             maxValue: '',
-            filteredProducts: [],
+            filteredProducts: []
         };
-        this.handleChange = this.handleChange.bind(this);
+        this.handleChangeMin = this.handleChangeMin.bind(this);
+        this.handleChangeMax = this.handleChangeMax.bind(this);
         this.formSubmit = this.formSubmit.bind(this);
     }
 
-    handleChange(event) {
-        this.setState({
-            [event.target.name]: parseInt(event.target.value)
-        });
+    handleChangeMin(minValue) {
+        this.setState({minValue: parseInt(minValue)});
+    }
+
+    handleChangeMax(maxValue) {
+        this.setState({maxValue: parseInt(maxValue)});
     }
 
     formSubmit() {
         this.setState({
-            filteredProducts: getFilteredProducts(data, this.state.minValue, this.state.maxValue)
+            filteredProducts: getFilteredProducts(this.state.filteredProducts, this.state.minValue, this.state.maxValue)
         });
     }
 
@@ -61,19 +62,14 @@ class App extends React.Component {
     }
 
     render() {
-        
-        // логи для проверки
-        console.log('minValue:', this.state.minValue);
-        console.log('maxValue:', this.state.maxValue);
-
         return <ProductPage
+            data={data}
             filteredProducts={this.state.filteredProducts}
             minValue={this.state.minValue}
             maxValue={this.state.maxValue}
-            handleChange={this.handleChange}
+            changeMin={this.handleChangeMin}
+            changeMax={this.handleChangeMax}
             formSubmit={this.formSubmit}
-            // discountValue={this.state.discountValue}
-            // discountChange={this.discountChange}
         />;
     }
 }
