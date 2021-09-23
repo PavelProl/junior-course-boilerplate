@@ -31,22 +31,22 @@ class App extends React.Component {
         this.state = {
             minValue: '',
             maxValue: '',
+            sale: 0,
             filteredProducts: [],
         };
         this.handleChange = this.handleChange.bind(this);
-        this.formSubmit = this.formSubmit.bind(this);
     }
 
     handleChange(event) {
-        this.setState({
-            [event.target.name]: parseInt(event.target.value)
-        });
-    }
-
-    formSubmit() {
-        this.setState({
-            filteredProducts: getFilteredProducts(data, this.state.minValue, this.state.maxValue)
-        });
+        if (event.target.value === '') {
+            this.setState({
+                [event.target.name]: event.target.value
+            }); 
+        } else {
+            this.setState({
+                [event.target.name]: parseInt(event.target.value)
+            }); 
+        }
     }
 
     componentDidMount() {
@@ -59,17 +59,19 @@ class App extends React.Component {
     }
 
     render() {
-        
+        const filteredProducts = getFilteredProducts(data, this.state.minValue, this.state.maxValue);
         // логи для проверки
         console.log('minValue:', this.state.minValue);
         console.log('maxValue:', this.state.maxValue);
+        console.log('sale', this.state.sale);
+        console.log('filteredProducts', this.state.filteredProducts);
 
         return <ProductPage
-            filteredProducts={this.state.filteredProducts}
+            filteredProducts={filteredProducts}
             minValue={this.state.minValue}
             maxValue={this.state.maxValue}
+            discountValue={this.state.sale}
             handleChange={this.handleChange}
-            formSubmit={this.formSubmit}
         />;
     }
 }

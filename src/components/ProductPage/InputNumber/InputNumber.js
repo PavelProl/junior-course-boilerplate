@@ -1,5 +1,14 @@
 import React from 'react';
 
+function isNumericOrEmpty(str) {
+    if (!isNaN(str) && !isNaN(parseFloat(str))) {
+        return true;
+    } else if(str === '') {
+        return true;
+    }
+}
+
+
 class InputNumber extends React.Component {
     constructor(props) {
         super(props);
@@ -7,7 +16,9 @@ class InputNumber extends React.Component {
     }
 
     handleChange(event) {
-        this.props.handleChange(event);
+        if (isNumericOrEmpty(event.target.value)) {
+            this.props.handleChange(event);
+        }
     }
 
     render() {

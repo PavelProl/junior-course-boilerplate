@@ -1,6 +1,11 @@
 import React from 'react';
 import Discount from 'csssr-school-input-discount';
 
+function isNumericOrEmpty(str) {
+    if (!isNaN(str) && !isNaN(parseFloat(str))) return true;
+    if(str === '') return true;
+}
+
 class DiscountForm extends React.Component {
     constructor(props) {
         super(props);
@@ -8,8 +13,9 @@ class DiscountForm extends React.Component {
     }
 
     handleChange(event) {
-        let num = isNaN(parseInt(event.target.value)) ? '' : parseInt(event.target.value);
-        this.props.handleChange(num);
+        if (isNumericOrEmpty(event.target.value)) {
+            this.props.handleChange(event);
+        }
     }
 
     render() {
