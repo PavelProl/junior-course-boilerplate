@@ -3,7 +3,7 @@ import React from 'react';
 import ProductPageTitle from './ProductPageTitle/ProductPageTitle.js';
 import ProductsList from './ProductsList/ProductsList.js';
 import PriceFilter from './PriceFilter/PriceFilter.js';
-// import DiscountForm from './DiscountForm/DiscountForm.js';
+import HoccedDiscountForm from './DiscountForm/DiscountForm.js';
 
 import s from './ProductPage.module.css';
 
@@ -29,11 +29,11 @@ class ProductPage extends React.Component {
                                 maxValue={this.props.maxValue}
                                 handleChange={this.handleChange}
                             />
-                            {/* <div>
-                                <DiscountForm 
+                            <div>
+                                <HoccedDiscountForm 
                                     handleChange={this.handleChange}
-                                    value={this.props.discountValue} />
-                            </div> */}
+                                    value={this.props.sale} />
+                            </div>
                         </div>
                         <ProductsList
                             data={this.props.filteredProducts}

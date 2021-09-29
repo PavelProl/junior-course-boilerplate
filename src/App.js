@@ -10,6 +10,7 @@ function getInt(arr) {
 }
   
 function getMinValue(arr) {
+    getInt(arr);
     return minBy((obj) => obj.price, arr).price;
 }
   
@@ -17,9 +18,11 @@ function getMaxValue(arr) {
     return maxBy((obj) => obj.price, arr).price;
 }
 
-function getFilteredProducts(arr, min, max) {
+function getFilteredProducts(arr, min, max, sale) {
     const filtered = arr.filter((item) => {
-        return (item.price >= min) && (item.price <= max);
+        if (item.discount >= sale) {
+            return (item.price >= min) && (item.price <= max);
+        }
     });
 
     return filtered;
@@ -29,10 +32,9 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            minValue: '',
-            maxValue: '',
+            minValue: getMinValue(data),
+            maxValue: getMaxValue(data),
             sale: 0,
-            filteredProducts: [],
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -49,28 +51,19 @@ class App extends React.Component {
         }
     }
 
-    componentDidMount() {
-        getInt(data);
-        this.setState({
-            minValue: getMinValue(data),
-            maxValue: getMaxValue(data),
-            filteredProducts: getFilteredProducts(data, getMinValue(data), getMaxValue(data))
-        });
-    }
-
     render() {
-        const filteredProducts = getFilteredProducts(data, this.state.minValue, this.state.maxValue);
+        const {minValue, maxValue, sale} = this.state;
+        const filteredProducts = getFilteredProducts(data, minValue, maxValue, sale);
         // логи для проверки
-        console.log('minValue:', this.state.minValue);
-        console.log('maxValue:', this.state.maxValue);
-        console.log('sale', this.state.sale);
-        console.log('filteredProducts', this.state.filteredProducts);
+        console.log('minValue:', minValue);
+        console.log('maxValue:', maxValue);
+        console.log('sale', sale);
 
         return <ProductPage
             filteredProducts={filteredProducts}
-            minValue={this.state.minValue}
-            maxValue={this.state.maxValue}
-            discountValue={this.state.sale}
+            minValue={minValue}
+            maxValue={maxValue}
+            sale={sale}
             handleChange={this.handleChange}
         />;
     }
