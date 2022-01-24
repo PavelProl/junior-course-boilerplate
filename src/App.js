@@ -4,6 +4,8 @@ import data from './products.json';
 import getMinValue from './utils/getMinValue';
 import getMaxValue from './utils/getMaxValue';
 import getFilteredProducts from './utils/getFilteredProducts';
+import reducer from './reducer';
+import { createStore } from './redux';
 
 // import * as R from 'ramda'; для мемоизации (введу позже)
 
@@ -27,6 +29,9 @@ const CategoryContext = React.createContext({
     handleSelectCategory: () => {},
 });
 
+let initialState = null;
+const store = createStore(reducer, initialState);
+
 class App extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -39,8 +44,8 @@ class App extends React.PureComponent {
             maxValue: getMaxValue(data),
             sale: 0,
             selectedCategories: [],
-            handleSelectCategory: this.handleSelectCategory,
         };
+
         this.handleChange = this.handleChange.bind(this);
         this.handleResetClick = this.handleResetClick.bind(this);
         this.handleSelectCategory = this.handleSelectCategory.bind(this);
@@ -48,11 +53,13 @@ class App extends React.PureComponent {
 
     componentDidMount() {
         const [, categoriesFromUrl] = window.location.search.split('=');
+        console.log('categoriesFromUrl', categoriesFromUrl);
         const selectedCategories = categoriesFromUrl
             ? categoriesFromUrl.split(',') 
             : [];
         this.setState({ ...this.state, selectedCategories });
         window.addEventListener('popstate', this.setFromHistory);
+        console.log('selectedCategories from cDM', selectedCategories);
     }
 
     componentWillUnmount() {
@@ -90,7 +97,7 @@ class App extends React.PureComponent {
                 url += ',' + selected[i];
             }
         }
-        window.history.pushState({ url }, 'title', url);
+        window.history.pushState({ url }, '', url);
     }
 
     handleChange(event) {
@@ -111,7 +118,7 @@ class App extends React.PureComponent {
                         sale: 0,
                         selectedCategories: []
                     });
-        window.history.pushState({}, 'title', '/');
+        window.history.pushState({}, '', '/');
     }
 
     render() {
