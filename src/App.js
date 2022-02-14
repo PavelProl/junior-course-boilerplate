@@ -4,8 +4,6 @@ import data from './products.json';
 import getMinValue from './utils/getMinValue';
 import getMaxValue from './utils/getMaxValue';
 import getFilteredProducts from './utils/getFilteredProducts';
-import reducer from './reducer';
-import { createStore } from './redux';
 
 // import * as R from 'ramda'; для мемоизации (введу позже)
 
@@ -29,37 +27,42 @@ const CategoryContext = React.createContext({
     handleSelectCategory: () => {},
 });
 
-let initialState = null;
-const store = createStore(reducer, initialState);
-
 class App extends React.PureComponent {
     constructor(props) {
         super(props);
         //перезаписываем первоначальный URL, чтобы при возвращении к самому первому реальному URL в нашей истории не было ошибки (когда свойство state события popstate будет равно null)
-        const url = window.location.pathname.substr(1);
-        window.history.replaceState({ url }, 'title', window.location.pathname);
+        // const url = window.location.pathname.substr(1);
+        // window.history.replaceState({ url }, 'title', window.location.pathname);
+
+        const urlFilterParams = decodeURIComponent(window.location.search);
 
         this.state = {
             minValue: getMinValue(data),
             maxValue: getMaxValue(data),
             sale: 0,
-            selectedCategories: [],
+            selectedCategories: this.getSelectedCategoryFromUrl(urlFilterParams),
+            // handleSelectCategory: this.handleSelectCategory,
         };
-
         this.handleChange = this.handleChange.bind(this);
         this.handleResetClick = this.handleResetClick.bind(this);
         this.handleSelectCategory = this.handleSelectCategory.bind(this);
+
+        if (this.state.selectedCategories.length === 0) {
+            window.history.replaceState({ url: this.state.selectedCategories }, '', '/');
+        } else {
+            window.history.replaceState({ url: this.state.selectedCategories }, '', '?category=' + this.state.selectedCategories);
+        }
     }
 
+    getSelectedCategoryFromUrl = (url) => {
+        let parseUrl = url.split('=')
+        parseUrl = parseUrl.pop()
+        // получаем массив выбранных категорий, либо []
+        return parseUrl ? parseUrl.split(',') : []
+      };
+
     componentDidMount() {
-        const [, categoriesFromUrl] = window.location.search.split('=');
-        console.log('categoriesFromUrl', categoriesFromUrl);
-        const selectedCategories = categoriesFromUrl
-            ? categoriesFromUrl.split(',') 
-            : [];
-        this.setState({ ...this.state, selectedCategories });
         window.addEventListener('popstate', this.setFromHistory);
-        console.log('selectedCategories from cDM', selectedCategories);
     }
 
     componentWillUnmount() {
@@ -78,8 +81,8 @@ class App extends React.PureComponent {
 
         if (selectedCategories.includes(selectedItem) && selectedCategories.length === 1) {
             selected = [];
-            window.history.pushState({}, 'title', '/');
-        } else if (selectedCategories.includes(selectedItem) && selectedCategories.length) {
+            window.history.pushState({}, '', '/');
+        } else if (selectedCategories.includes(selectedItem) && selectedCategories.length > 1) {
             selected = selectedCategories.filter((item) => item !== selectedItem);
         } else {
             selected = [...selectedCategories, selectedItem];
@@ -97,6 +100,7 @@ class App extends React.PureComponent {
                 url += ',' + selected[i];
             }
         }
+
         window.history.pushState({ url }, '', url);
     }
 
@@ -122,6 +126,9 @@ class App extends React.PureComponent {
     }
 
     render() {
+        // временный лог
+        console.log('selectedCategories', this.state.selectedCategories);
+
         const {minValue, maxValue, sale, selectedCategories} = this.state;
         const filteredProducts = getFilteredProducts(data, minValue, maxValue, sale, selectedCategories);
 
