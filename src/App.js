@@ -81,7 +81,7 @@ class App extends React.PureComponent {
 
         if (selectedCategories.includes(selectedItem) && selectedCategories.length === 1) {
             selected = [];
-            window.history.pushState({}, '', '/');
+            // window.history.pushState({ url }, '', url);
         } else if (selectedCategories.includes(selectedItem) && selectedCategories.length > 1) {
             selected = selectedCategories.filter((item) => item !== selectedItem);
         } else {
