@@ -70,5 +70,17 @@
     "maxRating": 5,
     "rating": 4,
     "category": "books"
+  },
+  {
+    "id": 7,
+    "isInStock": false,
+    "img": "./images/img6.jpg",
+    "title": "Test",
+    "price": "5000 ₽",
+    "discount": 15,
+    "subPriceContent": "",
+    "maxRating": 5,
+    "rating": 4,
+    "category": "test"
   }
 ]

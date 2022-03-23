@@ -46,9 +46,7 @@ class ProductPage extends React.Component {
                             <ResetFilters handleClick={this.handleResetClick} />
                         </div>
 
-                        <ProductsList
-                            data={this.props.filteredProducts}
-                        />
+                        <ProductsList />
                     </div>
                 </div>
             </main>

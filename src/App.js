@@ -126,27 +126,28 @@ class App extends React.PureComponent {
     }
 
     render() {
-        // временный лог
-        console.log('selectedCategories', this.state.selectedCategories);
 
         const {minValue, maxValue, sale, selectedCategories} = this.state;
         const filteredProducts = getFilteredProducts(data, minValue, maxValue, sale, selectedCategories);
+        // временные логи
+        console.log('selectedCategories', this.state.selectedCategories);
+        console.log('filteredProducts', filteredProducts);
 
         return (
             <CategoryContext.Provider value={{
                 ...this.state,
+                filteredProducts,
                 handleSelectCategory: this.handleSelectCategory}}>
                 <ProductPage
-                    filteredProducts={filteredProducts}
                     minValue={minValue}
                     maxValue={maxValue}
                     sale={sale}
                     handleChange={this.handleChange}
                     handleResetClick={this.handleResetClick}
-                />;
+                />
             </CategoryContext.Provider>
         );
     }
 }
 
-export { App, CategoryContext }; 
+export { App, CategoryContext };
