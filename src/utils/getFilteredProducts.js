@@ -1,12 +1,11 @@
 import { toInt } from 'csssr-school-utils';
 
-export default (arr, min, max, sale, selectedCategories) => {
-    return arr.filter(item => {
+export default (data, minPrice, maxPrice, discount, selectedCategories) => {
+    return data.filter(item => {
         const priceItem = toInt(item.price);
-        if ((selectedCategories.length > 0) && selectedCategories.includes(item.category)) {
-            return (item.discount >= sale) && (priceItem >= min) && (priceItem <= max);
-        } else if (selectedCategories.length === 0) {
-            return (item.discount >= sale) && (priceItem >= min) && (priceItem <= max);
-        }
+        return priceItem >= minPrice
+            && priceItem <= maxPrice
+            && item.discount >= discount
+            && (selectedCategories.length > 0 ? selectedCategories.includes(item.category) : true)
     });
 }
