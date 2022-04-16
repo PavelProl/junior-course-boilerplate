@@ -1,6 +1,6 @@
 import React from 'react';
-import { CategoryContext } from '../../../App.js';
-import s from './InputCategory.module.css';
+import { CategoryContext } from '../../../../App.js';
+import s from './CategoryInput.module.css';
 
 const InputCategory = (props) => {
     return (

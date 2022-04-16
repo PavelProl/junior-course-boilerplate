@@ -5,6 +5,8 @@ import getMinValue from './utils/getMinValue';
 import getMaxValue from './utils/getMaxValue';
 import getFilteredProducts from './utils/getFilteredProducts';
 
+import { store } from './store/store';
+
 // import * as R from 'ramda'; для мемоизации (введу позже)
 
 /* на будущее
@@ -27,6 +29,15 @@ const CategoryContext = React.createContext({
     handleSelectCategory: () => {},
 });
 
+// store.dispatch({
+//     type: "CHANGE_MIN_VALUE",
+//     value: 10
+// });
+
+store.subscribe(() => {
+    console.log('minValue', store.getState().minValue);
+})
+
 class App extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -37,12 +48,12 @@ class App extends React.PureComponent {
         const urlFilterParams = decodeURIComponent(window.location.search);
 
         this.state = {
-            minValue: getMinValue(data),
+            // minValue: getMinValue(data),
             maxValue: getMaxValue(data),
             sale: 0,
             selectedCategories: this.getSelectedCategoryFromUrl(urlFilterParams),
-            // handleSelectCategory: this.handleSelectCategory,
         };
+        
         this.handleChange = this.handleChange.bind(this);
         this.handleResetClick = this.handleResetClick.bind(this);
         this.handleSelectCategory = this.handleSelectCategory.bind(this);
@@ -105,15 +116,41 @@ class App extends React.PureComponent {
     }
 
     handleChange(event) {
+        // if (event.target.value === '') {
+        //     this.setState({
+        //         [event.target.name]: event.target.value
+        //     }); 
+        // } else {
+        //     this.setState({
+        //         [event.target.name]: parseInt(event.target.value)
+        //     }); 
+        // }
+
         if (event.target.value === '') {
-            this.setState({
-                [event.target.name]: event.target.value
-            }); 
+            if (event.target.name === 'minValue') {
+                store.dispatch({
+                    type: 'CHANGE_MIN_VALUE',
+                    value: ''
+                });
+            } else if (event.target.name === 'maxValue') {
+                this.setState({ maxValue: event.target.value })
+            }
         } else {
-            this.setState({
-                [event.target.name]: parseInt(event.target.value)
-            }); 
+            if (event.target.name === 'minValue') {
+                store.dispatch({
+                    type: 'CHANGE_MIN_VALUE',
+                    value: parseInt(event.target.value)
+                }); 
+            } else if (event.target.name === 'maxValue') {
+                this.setState({ maxValue: parseInt(event.target.value) })
+            }
         }
+
+        // store.dispatch({
+        //     type: "CHANGE_MIN_VALUE",
+        //     value: event.target.value
+        // });
+
     }
 
     handleResetClick() {
@@ -127,11 +164,15 @@ class App extends React.PureComponent {
 
     render() {
 
-        const {minValue, maxValue, sale, selectedCategories} = this.state;
+        const {sale, selectedCategories} = this.state;
+        const minValue = store.getState().minValue;
+        const maxValue = this.state.maxValue;
         const filteredProducts = getFilteredProducts(data, minValue, maxValue, sale, selectedCategories);
         // временные логи
         console.log('selectedCategories', this.state.selectedCategories);
         console.log('filteredProducts', filteredProducts);
+        console.log('minValue -->', minValue);
+        console.log('maxValue -->', maxValue);
 
         return (
             <CategoryContext.Provider value={{

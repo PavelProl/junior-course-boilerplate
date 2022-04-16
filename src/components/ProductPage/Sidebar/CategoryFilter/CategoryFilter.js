@@ -1,16 +1,16 @@
 import React from 'react';
-import s from './Category.module.css';
-import InputCategory from '../InputCategory/InputCategory';
+import s from './CategoryFilter.module.css';
+import CategoryInput from '../CategoryInput/CategoryInput';
 
-const Category = () => {
+const CategoryFilter = () => {
     return (
         <div className={s.categories}>
             <div className={s.categories__title}>Категории</div>
             <div className={s.categories__wrapper}>
-                <InputCategory 
+                <CategoryInput
                     name="clothes"
                 />
-                <InputCategory
+                <CategoryInput
                     name="books"
                 />
             </div>
@@ -18,4 +18,4 @@ const Category = () => {
     );
 }
 
-export default Category;
+export default CategoryFilter;

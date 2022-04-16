@@ -1,6 +1,6 @@
 import React from 'react';
 import Discount from 'csssr-school-input-discount';
-import HoccecInput from '../HoccedInput';
+import HoccecInput from '../../HoccedInput';
 
 const DiscountForm = (props) => {
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './PriceFilter.module.css';
-import HoccedInputNumber from '../InputNumber/InputNumber.js';
-import LogRender from '../../../LogRender';
+import HoccedPriceInput from '../PriceInput/PriceInput';
+import LogRender from '../../../../LogRender';
 
 class PriceFilter extends LogRender {
     constructor(props) {
@@ -21,7 +21,7 @@ class PriceFilter extends LogRender {
                     <div className={s.range__wrapper}>
                         <label>
                             от
-                            <HoccedInputNumber
+                            <HoccedPriceInput
                                 className={s.range__input}
                                 name="minValue"
                                 value={this.props.minValue}
@@ -30,7 +30,7 @@ class PriceFilter extends LogRender {
                         </label>
                         <label>
                             до
-                            <HoccedInputNumber
+                            <HoccedPriceInput
                                 className={s.range__input}
                                 name="maxValue"
                                 value={this.props.maxValue}
