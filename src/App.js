@@ -29,13 +29,9 @@ const CategoryContext = React.createContext({
     handleSelectCategory: () => {},
 });
 
-// store.dispatch({
-//     type: "CHANGE_MIN_VALUE",
-//     value: 10
-// });
-
 store.subscribe(() => {
     console.log('minValue', store.getState().minValue);
+    console.log('maxValue', store.getState().maxValue);
 })
 
 class App extends React.PureComponent {
@@ -48,14 +44,10 @@ class App extends React.PureComponent {
         const urlFilterParams = decodeURIComponent(window.location.search);
 
         this.state = {
-            // minValue: getMinValue(data),
-            maxValue: getMaxValue(data),
-            sale: 0,
+            // sale: 0,
             selectedCategories: this.getSelectedCategoryFromUrl(urlFilterParams),
         };
         
-        this.handleChange = this.handleChange.bind(this);
-        this.handleResetClick = this.handleResetClick.bind(this);
         this.handleSelectCategory = this.handleSelectCategory.bind(this);
 
         if (this.state.selectedCategories.length === 0) {
@@ -115,64 +107,22 @@ class App extends React.PureComponent {
         window.history.pushState({ url }, '', url);
     }
 
-    handleChange(event) {
-        // if (event.target.value === '') {
-        //     this.setState({
-        //         [event.target.name]: event.target.value
-        //     }); 
-        // } else {
-        //     this.setState({
-        //         [event.target.name]: parseInt(event.target.value)
-        //     }); 
-        // }
-
-        if (event.target.value === '') {
-            if (event.target.name === 'minValue') {
-                store.dispatch({
-                    type: 'CHANGE_MIN_VALUE',
-                    value: ''
-                });
-            } else if (event.target.name === 'maxValue') {
-                this.setState({ maxValue: event.target.value })
-            }
-        } else {
-            if (event.target.name === 'minValue') {
-                store.dispatch({
-                    type: 'CHANGE_MIN_VALUE',
-                    value: parseInt(event.target.value)
-                }); 
-            } else if (event.target.name === 'maxValue') {
-                this.setState({ maxValue: parseInt(event.target.value) })
-            }
-        }
-
-        // store.dispatch({
-        //     type: "CHANGE_MIN_VALUE",
-        //     value: event.target.value
-        // });
-
-    }
-
-    handleResetClick() {
-        this.setState({ minValue: getMinValue(data),
-                        maxValue: getMaxValue(data),
-                        sale: 0,
-                        selectedCategories: []
-                    });
-        window.history.pushState({}, '', '/');
-    }
+    // handleResetClick() {
+    //     this.setState({
+    //                     sale: 0,
+    //                     selectedCategories: []
+    //                 });
+    //     window.history.pushState({}, '', '/');
+    // }
 
     render() {
-
-        const {sale, selectedCategories} = this.state;
-        const minValue = store.getState().minValue;
-        const maxValue = this.state.maxValue;
+        const {selectedCategories} = this.state;
+        const { minValue, maxValue, sale } = store.getState();
         const filteredProducts = getFilteredProducts(data, minValue, maxValue, sale, selectedCategories);
         // временные логи
         console.log('selectedCategories', this.state.selectedCategories);
         console.log('filteredProducts', filteredProducts);
-        console.log('minValue -->', minValue);
-        console.log('maxValue -->', maxValue);
+        console.log('minValue', minValue);
 
         return (
             <CategoryContext.Provider value={{
@@ -180,11 +130,7 @@ class App extends React.PureComponent {
                 filteredProducts,
                 handleSelectCategory: this.handleSelectCategory}}>
                 <ProductPage
-                    minValue={minValue}
-                    maxValue={maxValue}
-                    sale={sale}
-                    handleChange={this.handleChange}
-                    handleResetClick={this.handleResetClick}
+                    // sale={sale}
                 />
             </CategoryContext.Provider>
         );

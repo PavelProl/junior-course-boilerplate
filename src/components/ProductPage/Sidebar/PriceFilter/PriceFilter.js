@@ -1,40 +1,32 @@
 import React from 'react';
-import s from './PriceFilter.module.css';
-import HoccedPriceInput from '../PriceInput/PriceInput';
+
 import LogRender from '../../../../LogRender';
+import { MinInputContainer } from '../PriceFilter/MinInputContainer';
+import { MaxInputContainer } from '../PriceFilter/MaxInputContainer';
+
+import s from './PriceFilter.module.css';
 
 class PriceFilter extends LogRender {
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(event) {
-        this.props.handleChange(event);
     }
 
     render() {
         return (
             <div className={s.form}>
                 <div className={s.form__title}>Цена</div>
-                <form onSubmit={this.handleSubmit}>
+                <form>
                     <div className={s.range__wrapper}>
                         <label>
                             от
-                            <HoccedPriceInput
+                            <MinInputContainer
                                 className={s.range__input}
-                                name="minValue"
-                                value={this.props.minValue}
-                                handleChange={this.handleChange}
                             />
                         </label>
                         <label>
                             до
-                            <HoccedPriceInput
+                            <MaxInputContainer
                                 className={s.range__input}
-                                name="maxValue"
-                                value={this.props.maxValue}
-                                handleChange={this.handleChange}
                             />
                         </label>
                     </div>

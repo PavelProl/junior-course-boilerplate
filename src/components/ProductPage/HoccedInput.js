@@ -17,7 +17,7 @@ const HoccedInput = (WrappedComponent) => {
     
         handleChange(event) {
             if (isNumericOrEmpty(event.target.value)) {
-                this.props.handleChange(event);
+                this.props.handleChange(event.target.value);
             }
         }
     
