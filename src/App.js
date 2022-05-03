@@ -29,10 +29,10 @@ const CategoryContext = React.createContext({
     handleSelectCategory: () => {},
 });
 
-store.subscribe(() => {
-    console.log('minValue', store.getState().minValue);
-    console.log('maxValue', store.getState().maxValue);
-})
+// store.subscribe(() => {
+//     console.log('minValue', store.getState().minValue);
+//     console.log('maxValue', store.getState().maxValue);
+// })
 
 class App extends React.PureComponent {
     constructor(props) {
@@ -44,7 +44,6 @@ class App extends React.PureComponent {
         const urlFilterParams = decodeURIComponent(window.location.search);
 
         this.state = {
-            // sale: 0,
             selectedCategories: this.getSelectedCategoryFromUrl(urlFilterParams),
         };
         
@@ -129,9 +128,7 @@ class App extends React.PureComponent {
                 ...this.state,
                 filteredProducts,
                 handleSelectCategory: this.handleSelectCategory}}>
-                <ProductPage
-                    // sale={sale}
-                />
+                <ProductPage />
             </CategoryContext.Provider>
         );
     }
