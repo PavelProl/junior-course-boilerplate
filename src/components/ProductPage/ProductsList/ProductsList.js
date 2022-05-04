@@ -3,6 +3,7 @@ import s from './ProductsList.module.css';
 import Product from '../Product';
 import LogRender from '../../../LogRender';
 import { CategoryContext } from '../../../App';
+import store from '../../../store/store';
 
 class ProductsList extends LogRender {
     render() {

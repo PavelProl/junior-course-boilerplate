@@ -116,12 +116,13 @@ class App extends React.PureComponent {
 
     render() {
         const {selectedCategories} = this.state;
-        const { minValue, maxValue, sale } = store.getState();
-        const filteredProducts = getFilteredProducts(data, minValue, maxValue, sale, selectedCategories);
+        const { minValue, maxValue, sale, filteredProducts } = store.getState();
+        // const filteredProducts = getFilteredProducts(data, minValue, maxValue, sale, selectedCategories);
         // временные логи
-        console.log('selectedCategories', this.state.selectedCategories);
-        console.log('filteredProducts', filteredProducts);
-        console.log('minValue', minValue);
+        console.log('selectedCategories from render', selectedCategories);
+        console.log('filteredProducts from render', filteredProducts);
+        console.log('minValue from render', minValue);
+        console.log('maxValue from render', maxValue);
 
         return (
             <CategoryContext.Provider value={{

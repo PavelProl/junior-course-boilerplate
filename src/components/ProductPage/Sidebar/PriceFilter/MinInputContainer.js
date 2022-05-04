@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import HoccedPriceInput from '../PriceInput/PriceInput';
 
 const mapStateToProps = (state) => {
+    console.log('state from MinInputContainer', state); 
     return {
         value: state.minValue
     }
