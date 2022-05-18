@@ -1,27 +1,30 @@
 import React from 'react';
 import PriceFilter from './PriceFilter/PriceFilter';
-import { DiscountFilterContainer } from './DiscountFilter/DiscountFilterContainer';
+import HoccedDiscountFilter from './DiscountFilter/DiscountFilter';
 import CategoryFilter from './CategoryFilter/CategoryFilter';
-import { ResetFiltersContainer } from './ResetFilters/ResetFiltersContainer';
+import { ResetFilters } from './ResetFilters/ResetFilters';
 
-class Sidebar extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <>
-            <PriceFilter />
-            <DiscountFilterContainer
-                // handleChange={this.handleChange}
-                // value={this.props.sale}
-            />
-            <CategoryFilter />
-            <ResetFiltersContainer />
-            </>
-        );
-    }
+const Sidebar = (props) => {
+    return (
+        <>
+        <PriceFilter 
+            minValue={props.minValue}
+            maxValue={props.maxValue}
+            handleMinChange={props.handleMinChange}
+            handleMaxChange={props.handleMaxChange}
+        />
+        <HoccedDiscountFilter
+            value={props.discount}
+            handleChange={props.handleDiscountChange}
+        />
+        <CategoryFilter 
+            handleSelectCategory={props.handleSelectCategory}
+        />
+        <ResetFilters 
+            handleClick={props.handleResetClick}
+        />
+        </>
+    );
 }
 
 export default Sidebar;

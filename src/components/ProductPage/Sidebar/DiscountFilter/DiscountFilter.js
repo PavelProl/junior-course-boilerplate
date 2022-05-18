@@ -2,7 +2,7 @@ import React from 'react';
 import Discount from 'csssr-school-input-discount';
 import HoccecInput from '../../HoccedInput';
 
-const DiscountForm = (props) => {
+const DiscountFilter = (props) => {
     return (
         <Discount
             title="Скидка"
@@ -13,6 +13,6 @@ const DiscountForm = (props) => {
     );
 }
 
-const HoccedDiscountForm = HoccecInput(DiscountForm);
+const HoccedDiscountFilter = HoccecInput(DiscountFilter);
 
-export default HoccedDiscountForm;
+export default HoccedDiscountFilter;

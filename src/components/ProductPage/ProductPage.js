@@ -1,16 +1,12 @@
 import React from 'react';
 
 import ProductPageTitle from './ProductPageTitle/ProductPageTitle.js';
-import ProductsList from './ProductsList/ProductsList.js';
-import Sidebar from './Sidebar/Sidebar.js';
+import { ListContainer } from '../../containers/ListContainer';
+import { SidebarContainer } from '../../containers/SidebarContainer';
 
 import s from './ProductPage.module.css';
 
 class ProductPage extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <main>
@@ -18,11 +14,9 @@ class ProductPage extends React.Component {
                     <ProductPageTitle />
                     <div className={s.productPageContent}>
                         <div className={s.productPageFilterWrapper}>
-                            <Sidebar 
-                                sale={this.props.sale}
-                            />
+                            <SidebarContainer />
                         </div>
-                        <ProductsList />
+                        <ListContainer />
                     </div>
                 </div>
             </main>

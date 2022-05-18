@@ -1,11 +1,6 @@
 import React from 'react';
 import ProductPage from './components/ProductPage/ProductPage.js';
-import data from './products.json';
-import getMinValue from './utils/getMinValue';
-import getMaxValue from './utils/getMaxValue';
-import getFilteredProducts from './utils/getFilteredProducts';
-
-import { store } from './store/store';
+// import { store } from './store/store';
 
 // import * as R from 'ramda'; для мемоизации (введу позже)
 
@@ -28,11 +23,6 @@ let memoizedGetFilteredProducts = memoizeByResult(getFilteredProducts);
 const CategoryContext = React.createContext({
     handleSelectCategory: () => {},
 });
-
-// store.subscribe(() => {
-//     console.log('minValue', store.getState().minValue);
-//     console.log('maxValue', store.getState().maxValue);
-// })
 
 class App extends React.PureComponent {
     constructor(props) {
@@ -84,16 +74,15 @@ class App extends React.PureComponent {
         if (selectedCategories.includes(selectedItem) && selectedCategories.length === 1) {
             selected = [];
             // window.history.pushState({ url }, '', url);
+            window.history.pushState({}, '', '/');
         } else if (selectedCategories.includes(selectedItem) && selectedCategories.length > 1) {
             selected = selectedCategories.filter((item) => item !== selectedItem);
         } else {
             selected = [...selectedCategories, selectedItem];
         }
         
-        this.setState({
-            selectedCategories: selected
-        });
-        
+        this.setState({ selectedCategories: selected });
+
         if (selected.length === 1) {
             url += '/?categories=' + selected[0];
         } else if (selected.length > 1) {
@@ -106,28 +95,10 @@ class App extends React.PureComponent {
         window.history.pushState({ url }, '', url);
     }
 
-    // handleResetClick() {
-    //     this.setState({
-    //                     sale: 0,
-    //                     selectedCategories: []
-    //                 });
-    //     window.history.pushState({}, '', '/');
-    // }
-
     render() {
-        const {selectedCategories} = this.state;
-        const { minValue, maxValue, sale, filteredProducts } = store.getState();
-        // const filteredProducts = getFilteredProducts(data, minValue, maxValue, sale, selectedCategories);
-        // временные логи
-        console.log('selectedCategories from render', selectedCategories);
-        console.log('filteredProducts from render', filteredProducts);
-        console.log('minValue from render', minValue);
-        console.log('maxValue from render', maxValue);
-
         return (
             <CategoryContext.Provider value={{
                 ...this.state,
-                filteredProducts,
                 handleSelectCategory: this.handleSelectCategory}}>
                 <ProductPage />
             </CategoryContext.Provider>

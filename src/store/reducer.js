@@ -13,14 +13,21 @@ export const reducer = (state = {}, action) => {
         case 'CHANGE_DISCOUNT_VALUE':
             return {
                 ...state,
-                sale: action.payload
+                discount: action.payload
+            }
+        case 'SELECT_CATEGORY':
+            return {
+                ...state,
+                selectedCategories: action.payload
             }
         case 'RESET_FILTERS':
+            window.history.pushState({}, '', '/');
             return {
                 ...state,
                 minValue: action.payload.payloadMin,
                 maxValue: action.payload.payloadMax,
-                sale: action.payload.payloadSale
+                discount: action.payload.payloadSale,
+                selectedCategories: action.payload.payloadSelected
             }
         default:
             return state

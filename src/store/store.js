@@ -8,7 +8,8 @@ import data from '../products.json';
 const initialState = {
     minValue: getMinValue(data),
     maxValue: getMaxValue(data),
-    sale: 0,
+    discount: 0,
+    selectedCategories: [],
     filteredProducts: getFilteredProducts(data, getMinValue(data), getMaxValue(data), 0, [])
 };
 
