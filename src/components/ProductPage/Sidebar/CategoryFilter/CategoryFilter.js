@@ -1,18 +1,18 @@
 import React from 'react';
 import s from './CategoryFilter.module.css';
-import CategoryInput from '../CategoryInput/CategoryInput';
+import HoccedCategoryCheckbox from '../CategoryCheckbox/HoccedCategoryCheckbox';
 
 const CategoryFilter = (props) => {
     return (
         <div className={s.categories}>
             <div className={s.categories__title}>Категории</div>
             <div className={s.categories__wrapper}>
-                <CategoryInput
+                <HoccedCategoryCheckbox
                     name="clothes"
                     selectedCategories={props.selectedCategories}
                     handleSelectCategory={props.handleSelectCategory}
                 />
-                <CategoryInput
+                <HoccedCategoryCheckbox
                     name="books"
                     selectedCategories={props.selectedCategories}
                     handleSelectCategory={props.handleSelectCategory}

@@ -19,6 +19,7 @@ const Sidebar = (props) => {
         />
         <CategoryFilter 
             handleSelectCategory={props.handleSelectCategory}
+            selectedCategories={props.selectedCategories}
         />
         <ResetFilters 
             handleClick={props.handleResetClick}

@@ -66,33 +66,33 @@ class App extends React.PureComponent {
     }
 
     handleSelectCategory(e) {
-        const selectedItem = e.target.name;
-        const { selectedCategories } = this.state;
-        let selected = [];
-        let url = '';
+        // const selectedItem = e.target.name;
+        // const { selectedCategories } = this.state;
+        // let selected = [];
+        // let url = '';
 
-        if (selectedCategories.includes(selectedItem) && selectedCategories.length === 1) {
-            selected = [];
-            // window.history.pushState({ url }, '', url);
-            window.history.pushState({}, '', '/');
-        } else if (selectedCategories.includes(selectedItem) && selectedCategories.length > 1) {
-            selected = selectedCategories.filter((item) => item !== selectedItem);
-        } else {
-            selected = [...selectedCategories, selectedItem];
-        }
+        // if (selectedCategories.includes(selectedItem) && selectedCategories.length === 1) {
+        //     selected = [];
+        //     // window.history.pushState({ url }, '', url);
+        //     window.history.pushState({}, '', '/');
+        // } else if (selectedCategories.includes(selectedItem) && selectedCategories.length > 1) {
+        //     selected = selectedCategories.filter((item) => item !== selectedItem);
+        // } else {
+        //     selected = [...selectedCategories, selectedItem];
+        // }
         
-        this.setState({ selectedCategories: selected });
+        // this.setState({ selectedCategories: selected });
 
-        if (selected.length === 1) {
-            url += '/?categories=' + selected[0];
-        } else if (selected.length > 1) {
-            url += '/?categories=' + selected[0];
-            for (let i = 1; i < selected.length; i++) {
-                url += ',' + selected[i];
-            }
-        }
+        // if (selected.length === 1) {
+        //     url += '/?categories=' + selected[0];
+        // } else if (selected.length > 1) {
+        //     url += '/?categories=' + selected[0];
+        //     for (let i = 1; i < selected.length; i++) {
+        //         url += ',' + selected[i];
+        //     }
+        // }
 
-        window.history.pushState({ url }, '', url);
+        // window.history.pushState({ url }, '', url);
     }
 
     render() {
