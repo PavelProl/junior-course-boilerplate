@@ -54,10 +54,6 @@ const mapDispatchToProps = (dispatch) => {
                 payloadSale: 0,
                 payloadSelected: []
             }
-        }),
-        handleSelectCategory: (selected) => dispatch({
-            type: 'SELECT_CATEGORY',
-            payload: selected
         })
     }
 };

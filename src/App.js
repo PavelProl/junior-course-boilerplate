@@ -66,20 +66,20 @@ class App extends React.PureComponent {
     }
 
     handleSelectCategory(e) {
-        // const selectedItem = e.target.name;
-        // const { selectedCategories } = this.state;
-        // let selected = [];
-        // let url = '';
+        const selectedItem = e.target.name;
+        const { selectedCategories } = this.state;
+        let selected = [];
+        let url = '';
 
-        // if (selectedCategories.includes(selectedItem) && selectedCategories.length === 1) {
-        //     selected = [];
-        //     // window.history.pushState({ url }, '', url);
-        //     window.history.pushState({}, '', '/');
-        // } else if (selectedCategories.includes(selectedItem) && selectedCategories.length > 1) {
-        //     selected = selectedCategories.filter((item) => item !== selectedItem);
-        // } else {
-        //     selected = [...selectedCategories, selectedItem];
-        // }
+        if (selectedCategories.includes(selectedItem) && selectedCategories.length === 1) {
+            selected = [];
+            // window.history.pushState({ url }, '', url);
+            window.history.pushState({}, '', '/');
+        } else if (selectedCategories.includes(selectedItem) && selectedCategories.length > 1) {
+            selected = selectedCategories.filter((item) => item !== selectedItem);
+        } else {
+            selected = [...selectedCategories, selectedItem];
+        }
         
         // this.setState({ selectedCategories: selected });
 

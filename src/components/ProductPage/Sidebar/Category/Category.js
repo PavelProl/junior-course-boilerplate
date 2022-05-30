@@ -1,9 +1,8 @@
 import React from 'react';
 // import { CategoryContext } from '../../../../App.js';
-import s from './CategoryCheckbox.module.css';
-import HoccedCheckbox from '../../HoccedCheckbox';
+import s from './Category.module.css';
 
-const CategoryCheckbox = (props) => {
+export const Category = (props) => {
     return (
         <label className={s.checkboxCategory}>
             <input 
@@ -16,7 +15,3 @@ const CategoryCheckbox = (props) => {
         </label>
     );
 }
-
-const HoccedCategoryCheckbox = HoccedCheckbox(CategoryCheckbox);
-
-export default HoccedCategoryCheckbox;
