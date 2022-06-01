@@ -30,3 +30,4 @@ class ProductsList extends LogRender {
 }
 
 export default ProductsList;
+

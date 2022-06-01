@@ -1,7 +1,7 @@
 import React from 'react';
 import PriceFilter from './PriceFilter/PriceFilter';
 import HoccedDiscountFilter from './DiscountFilter/DiscountFilter';
-import CategoryFilter from './CategoryFilter/CategoryFilter';
+import CategoryContainer  from '../../../containers/CategoryContainer';
 import { ResetFilters } from './ResetFilters/ResetFilters';
 
 const Sidebar = (props) => {
@@ -17,10 +17,7 @@ const Sidebar = (props) => {
             value={props.discount}
             handleChange={props.handleDiscountChange}
         />
-        <CategoryFilter 
-            // handleSelectCategory={props.handleSelectCategory}
-            // selectedCategories={props.selectedCategories}
-        />
+        <CategoryContainer />
         <ResetFilters 
             handleClick={props.handleResetClick}
         />
