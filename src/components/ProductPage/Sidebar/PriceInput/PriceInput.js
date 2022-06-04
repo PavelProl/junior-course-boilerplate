@@ -1,7 +1,7 @@
 import React from 'react';
-import HoccedInput from '../HoccedInput';
+import HoccedInput from '../../HoccedInput';
 
-const InputNumber = (props) => {
+const PriceInput = (props) => {
     return (
         <input
             className={props.className}
@@ -12,6 +12,6 @@ const InputNumber = (props) => {
     );
 }
 
-const HoccedInputNumber = HoccedInput(InputNumber);
+const HoccedPriceInput = HoccedInput(PriceInput);
 
-export default HoccedInputNumber;
+export default HoccedPriceInput;

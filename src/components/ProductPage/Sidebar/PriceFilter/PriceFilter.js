@@ -1,40 +1,46 @@
 import React from 'react';
+import LogRender from '../../../../LogRender';
+import HoccedPriceInput from '../PriceInput/PriceInput';
+
 import s from './PriceFilter.module.css';
-import HoccedInputNumber from '../InputNumber/InputNumber.js';
-import LogRender from '../../../LogRender';
 
 class PriceFilter extends LogRender {
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
+        this.handleMinChange = this.handleMinChange.bind(this);
+        this.handleMaxChange = this.handleMaxChange.bind(this);
     }
 
-    handleChange(event) {
-        this.props.handleChange(event);
+    handleMinChange(event) {
+        this.props.handleMinChange(event);
+    }
+    
+    handleMaxChange(event) {
+        this.props.handleMaxChange(event);
     }
 
     render() {
         return (
             <div className={s.form}>
                 <div className={s.form__title}>Цена</div>
-                <form onSubmit={this.handleSubmit}>
+                <form>
                     <div className={s.range__wrapper}>
                         <label>
                             от
-                            <HoccedInputNumber
+                            <HoccedPriceInput
                                 className={s.range__input}
                                 name="minValue"
                                 value={this.props.minValue}
-                                handleChange={this.handleChange}
+                                handleChange={this.handleMinChange}
                             />
                         </label>
                         <label>
                             до
-                            <HoccedInputNumber
+                            <HoccedPriceInput
                                 className={s.range__input}
                                 name="maxValue"
                                 value={this.props.maxValue}
-                                handleChange={this.handleChange}
+                                handleChange={this.handleMaxChange}
                             />
                         </label>
                     </div>
